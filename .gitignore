@@ -1,0 +1,47 @@
+### PyCharm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+/venv/
+/data/D_ICD_DIAGNOSES.csv
+/data/D_ICD_PROCEDURES.csv
+/data/mimic3/ALL_CODES.csv
+/data/mimic3/ALL_CODES_filtered.csv
+/data/mimic3/dev_50.csv
+/data/mimic3/dev_50_hadm_ids.csv
+/data/mimic3/dev_full.csv
+/data/mimic3/dev_full_hadm_ids.csv
+/data/mimic3/DIAGNOSES_ICD.csv
+/data/mimic3/disch_dev_split.csv
+/data/mimic3/disch_full.csv
+/data/mimic3/disch_test_split.csv
+/data/mimic3/disch_train_split.csv
+/data/mimic3/NOTEEVENTS.csv
+/data/mimic3/notes_labeled.csv
+/data/mimic3/PROCEDURES_ICD.csv
+/data/mimic3/processed_full_100.embed
+/data/mimic3/processed_full_100.w2v
+/data/mimic3/processed_full_100.w2v.syn1neg.npy
+/data/mimic3/processed_full_100.w2v.wv.vectors.npy
+/data/mimic3/processed_full_300.embed
+/data/mimic3/processed_full_300.w2v
+/data/mimic3/processed_full_300.w2v.syn1neg.npy
+/data/mimic3/processed_full_300.w2v.wv.vectors.npy
+/data/mimic3/test_50.csv
+/data/mimic3/test_50_hadm_ids.csv
+/data/mimic3/test_full.csv
+/data/mimic3/test_full_hadm_ids.csv
+/data/mimic3/TOP_50_CODES.csv
+/data/mimic3/train_50.csv
+/data/mimic3/train_50_hadm_ids.csv
+/data/mimic3/train_full.csv
+/data/mimic3/train_full_hadm_ids.csv
+/data/mimic3/vocab.csv
+/data/mimic3/vocab_rac.csv
