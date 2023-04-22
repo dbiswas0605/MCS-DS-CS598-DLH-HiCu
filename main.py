@@ -65,6 +65,10 @@ if __name__ == "__main__":
             relations.add(('root', v[0]))
             for i in range(4):
                 relations.add(tuple(v[i:i+2]))
+
+
+
+
         relations = list(relations)
         poincare = PoincareModel(relations, args.hyperbolic_dim, negative=10)
         poincare.train(epochs=50)
