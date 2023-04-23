@@ -61,19 +61,26 @@ if __name__ == "__main__":
         hierarchy = dicts['hierarchy_dist']
         # train poincare (hyperbolic) embeddings
         relations = set()
+        flat_relations = set()
         for k, v in hierarchy[4].items():
             relations.add(('root', v[0]))
+            flat_relations.add(('root', v[0]))
             for i in range(4):
-                relations.add(tuple(v[i:i+2]))
+                relations.add(tuple(v[i:i + 2]))
+                flat_relations.add(('root', v[i+1]))
 
+        #relations = list(relations)
+        flat_relations = list(flat_relations)
 
+        #poincare = PoincareModel(relations, args.hyperbolic_dim, negative=10)
+        flat_poincare = PoincareModel(flat_relations, args.hyperbolic_dim, negative=1)
 
+        #poincare.train(epochs=50)
+        flat_poincare.train(epochs=50)
 
-        relations = list(relations)
-        poincare = PoincareModel(relations, args.hyperbolic_dim, negative=10)
-        poincare.train(epochs=50)
-        dicts['poincare_embeddings'] = poincare.kv
-    
+        #dicts['poincare_embeddings'] = poincare.kv
+        dicts['flat_poincare_embeddings'] = flat_poincare.kv
+
     if args.decoder == "CodeTitle" or args.decoder == "RandomlyInitialized" or args.decoder == "LAATDecoder":
         args.depth = 1
 

@@ -196,8 +196,10 @@ class Decoder(nn.Module):
             for i in range(len(Y)):
                 self.hyperbolic_emb_dict[i] = np.zeros((Y[i], args.hyperbolic_dim))
                 for idx, code in dicts['ind2c'][i].items():
-                    self.hyperbolic_emb_dict[i][idx, :] = np.copy(dicts['poincare_embeddings'].get_vector(code))
-                self.register_buffer(name='hb_emb_' + str(i), tensor=torch.tensor(self.hyperbolic_emb_dict[i], dtype=torch.float32))
+                    # self.hyperbolic_emb_dict[i][idx, :] = np.copy(dicts['poincare_embeddings'].get_vector(code))
+                    self.hyperbolic_emb_dict[i][idx, :] = np.copy(dicts['flat_poincare_embeddings'].get_vector(code))
+                self.register_buffer(name='hb_emb_' + str(i),
+                                     tensor=torch.tensor(self.hyperbolic_emb_dict[i], dtype=torch.float32))
 
         self.cur_depth = 5 - args.depth
         self.is_init = False
