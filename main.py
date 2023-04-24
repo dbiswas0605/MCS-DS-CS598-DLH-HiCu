@@ -141,7 +141,9 @@ if __name__ == "__main__":
     epochs = [int(epoch) for epoch in args.n_epochs.split(',')]
     print(f"Total epochs at each level: {epochs}")
 
-    while cur_depth < 5:
+    # Reducing depth level to 2 after flattening ICD codes
+    #while cur_depth < 5:
+    while cur_depth < 2:
         metrics_hist = defaultdict(lambda: [])
         metrics_hist_te = defaultdict(lambda: [])
         metrics_hist_tr = defaultdict(lambda: [])
