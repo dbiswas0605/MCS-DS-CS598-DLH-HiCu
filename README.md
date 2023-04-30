@@ -18,7 +18,7 @@ Install the following packages to run the code in this repository:
 pip install -r requirements.txt
 ```
 The instructions and code documentation available on the GitHub are as below:
-[https://github.com/wren93/HiCu-ICD] and [https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network]
+https://github.com/wren93/HiCu-ICD and https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
 
 They are the prerequisite to setup the inputs to preprocess and train the model. Based on the Python version used, following updates were needed across the code:
 1. Changing \textit{np.int} to \textit{np.Int32}
@@ -68,5 +68,5 @@ Training
 
 Acknowledgement
 -----
-A large portion of the code in this repository is borrowed from [foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
+A large portion of the code in this repository is borrowed from original HiCu repository [https://github.com/wren93/HiCu-ICD] and also from [foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
 ](https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network). Thanks to their great work.

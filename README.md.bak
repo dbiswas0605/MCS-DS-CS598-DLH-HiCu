@@ -17,6 +17,24 @@ Install the following packages to run the code in this repository:
 ```bash
 pip install -r requirements.txt
 ```
+The instructions and code documentation available on the GitHub are as below:
+https://github.com/wren93/HiCu-ICD and https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
+
+They are the prerequisite to setup the inputs to preprocess and train the model. Based on the Python version used, following updates were needed across the code:
+1. Changing \textit{np.int} to \textit{np.Int32}
+2. Changing \textit{np.ifloat} to \textit{np.Float32}
+
+The latest version of the following packages are recommended - 
+1. gensim, nltk, numpy
+2. pandas, scikit\_learn
+3. scipy, torch, tqdm
+4. transformers
+
+And finally the command line parameters below are updated based on CPU/RAM configurations:
+1. data_path
+2. n_epochs
+3. gpu
+4. workers
 
 Data Preprocessing
 -----
@@ -50,5 +68,5 @@ Training
 
 Acknowledgement
 -----
-A large portion of the code in this repository is borrowed from [foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
+A large portion of the code in this repository is borrowed from [https://github.com/wren93/HiCu-ICD] and [foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
 ](https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network). Thanks to their great work.
