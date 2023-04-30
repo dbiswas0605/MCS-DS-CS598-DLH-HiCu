@@ -1,0 +1,302 @@
+%
+% File acl2021.tex
+%
+%% Based on the style files for EMNLP 2020, which were
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2021}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{natbib}
+\renewcommand{\UrlFont}{\ttfamily\small}
+\usepackage[nobiblatex]{xurl}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+\aclfinalcopy
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+% Content lightly modified from original work by Jesse Dodge and Noah Smith
+
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+\title{Project Final Report for CS598 DL4H in Spring 2023}
+
+\author{Ambarish Tripathi and Debabrata Biswas \\
+  \texttt{\{at37, dbiswas3\}@illinois.edu}
+  \\[2em]
+  Group ID: 10\\
+  Paper ID: 85\\
+  Presentation link: \url{https://github.com/dbiswas0605/MCS-DS-CS598-DLH-HiCu/blob/main/Presentation}\\
+  Code link: \url{https://github.com/dbiswas0605/MCS-DS-CS598-DLH-HiCu}} 
+
+\begin{document}
+\maketitle
+
+% All sections are mandatory.
+% Keep in mind that your page limit is 8, excluding references.
+% For specific grading rubrics, please see the project instruction.
+
+\section{Introduction}
+The original paper \cite{ren2022hicu} is titled as "HiCu: Leveraging Hierarchy for Curriculum Learning in Automated ICD Coding by Weiming Ren, Ruijing Zeng, Tongzi Wu, Tianshu Zhu and Rahul G. Krishnan". The paper can be found at \url{https://arxiv.org/abs/2208.02301}. The code repository for original paper can be found at \url{https://github.com/wren93/HiCu-ICD}.
+
+The paper aims to address the problem of automated coding of medical diagnoses and procedures using the International Classification of Diseases (ICD) system. Mapping clinical notes, discharge summaries, etc. from patient profiles such as electronic health records (EHR) to ICD coding is a time-consuming and error-prone task. It is a challenging task due to many possible codes and the complex relationships between them.The paper proposes a novel hierarchical curriculum learning approach that leverages the hierarchical structure of the ICD codes to improve the accuracy and efficiency of automated ICD coding \cite{koopman2015automatic} \cite{shi2017towards}. This can help a long way in reducing costs for patients and providers.
+
+The approach taken by the paper involves organizing the ICD codes into a hierarchical structure and using this structure to guide the training of the model. The model is trained in a curriculum learning framework, where simpler codes are learned before more complex codes. The curriculum is designed based on the hierarchical structure of the ICD codes, where the model is first trained to predict the high-level categories before moving to lower-level categories. The approach is interesting and innovative because it takes advantage of the hierarchical structure of the ICD codes to improve the model's ability to learn complex relationships between the codes, which is difficult to achieve using traditional flat learning approaches.
+
+Curriculum learning is the design of curricula – i.e., in the sequential design of tasks that gradually increase in difficulty. The HiCu is an innovation over this process that can predict ICD codes from the natural language descriptions of the patients.
+
+HiCu leverages the hierarchy of ICD codes which is grouped based on various organ systems of the human body. HiCu algorithm uses the graph structure in the space of outputs to design curricula for multi-label classification. 
+
+The HiCu algorithm is based on the observations below:
+\begin{enumerate}
+\item The tree structure of the ICD codes is an important aspect of HiCu. This is because the decision boundaries for different ICD codes are not independent. The ICD codes are organized in a tree structure which defines a notion of similarity between codes. This means that dissimilar labels will have different ancestors in the tree and vice versa. As we go deeper into each sub-tree, the specificity of the codes increases. This means that HiCu can provide wider and non-overlapping decision boundaries for multi-label classification as the diseases and organs are grouped under defined boundaries.
+\item HiCu explicitly incorporates techniques to handle label imbalance. This is essential to ensure parity of performance of predictive models on both rare and frequent labels. In other words, HiCu can predict rare and frequent labels with equal accuracy.
+\end{enumerate}
+
+Hierarchical Curriculum Learning (HiCu) is an improvement over curriculum learning \cite{bengio2009curriculum} which is used in medical code prediction. The curriculum learning is based on the principle of machine learning training strategy of gradual increase in hardness of learning task. HiCu is an algorithm that uses graph structure for solving multi-label classification problem \cite{mccallum1999multi}. 
+
+\subsection{HiCu: Hierarchical Curriculum Learning Algorithm}
+
+\includegraphics[scale=0.75]{HiCuAlgo.jpg}
+
+\section{Scope of reproducibility}
+The International Classification of Diseases codes (ICD code) follow a logical grouping by following a hierarchy of disease, symptoms and body parts. The grouping helps form an ordered tree structure. The HiCu algorithm is inspired from this graph structure which is used to design curricula for multi-label classification. The hierarchical curricula learning claims to provide wider and non overlapping decision boundary for multi-label classification as the disease and organs are grouped under defined boundaries.
+
+ The paper further claims that the decision boundaries for different ICD codes are not independent. Instead, ICD codes are organized in a tree structure which defines a notion of similarity, i.e. dissimilar labels will have different ancestors in the tree and vice versa.
+
+ This is an important distinction from the Curricula Learning by using NLP \cite{platanios2019competence} where the learning algorithm does not assume any relationship.
+
+\subsection{Addressed claims from the original paper}
+
+We are validating the following claims from the HiCu paper:
+\begin{itemize}
+    \item \textbf{Claim 1:} When there is no hierarchy or fewer than 5 ICD Codes hierarchy, the model should perform poorly than original paper.This validates the importance of the hierarchical structure in improving the multi-label classification performance of the HiCu algorithm.
+    \item \textbf{Claim 2:} Reducing the ICD Code Hierarchy should affect the model training time.This is because the hierarchical curriculum learning approach requires the model to learn from more examples in the early stages of training, which can be computationally expensive. Therefore, reducing the hierarchy may cost to have different classification performance.
+\end{itemize}
+
+
+\section{Methodology}
+In our study, we are utilizing the code provided by the HiCu paper with additional modifications in the code done for ablations and analyzing claims with ablations. Our objective is to validate the claim by carrying out ablations that the Hierarchical Curriculum Learning outperforms models with fewer or no hierarchical organization of ICD codes.
+\subsection{Model Descriptions}
+The original paper uses the Poincare model \cite{nickel2017poincare} using hyperbolic embeddings \cite{sala2018representation}. 
+
+\begin{itemize}
+\item \textbf{Architecture} 
+\end{itemize}
+Below is the high level encoder decoder architecture and the hierarchical curriculum learning algorithm of our ICD coding model:
+\begin{flushleft}\includegraphics[scale=0.28]{acl-ijcnlp2021-templates/Architecture.png}\end{flushleft}
+
+ At a high level, the HiCu architecture consists of an encoder-decoder framework combined with a hierarchical curriculum learning algorithm. The numbers above in figure indicate the sequential execution order of our training algorithm - The model is first trained on labels at the first level of the label tree using level one decoder, and then proceeds to level two using the knowledge transfer mechanism. This process is repeated until the model reaches the final level in the label tree. 
+
+During training at each level, the hyperbolic embeddings of the ICD codes are used to guide the attention computation in the decoder. The hyperbolic embeddings allow the model to learn a representation of the ICD code hierarchy that is more structured and aligned with the hierarchical structure of the codes. Our modification of the HiCu
+algorithm uses a high-order grouping of ICD code blocks to create a two-level hierarchy, and is trained on the \texttt{mimic3/train\_full.csv} dataset to verify its performance.
+
+\subsection{Data descriptions}
+We are using MIMIC III v1.4 dataset which contains over 50,000 patient's records, including their clinical notes and corresponding ICD codes. The dataset contains 52,722 summaries and 8,929 unique codes. The experiment used the top 50 codes with a subset of 11,317 summaries for training, validation, and testing. The full dataset has 47,719 training summaries, 1,631 validation summaries, and 3,372 testing summaries. We pre-processed the data to extract the relevant features and convert them into a suitable format for training the model. The HiCu algorithm is divided into 2 processes:
+\begin{itemize}
+    \item \textbf{Pre-Processing (Data Prep):}
+        \newline \textbf{Input} - The pre-reprocessing involves reading ICD-9 code files: \newline \texttt{D\_ICD\_DIAGNOSES.csv}, \texttt{D\_ICD\_PROCEDURES.CSV}, \texttt{NOTEEVENTS.CSV}, \texttt{PROCEDURES\_ICD.CSV}, \texttt{DIAGNOSIS\_ICD.CSV} 
+        \newline \textbf{Output} - The pre-processing step generates intermediate files : \newline \texttt{dev\_full.csv}, \newline \texttt{test\_full.csv}, \newline \texttt{disch\_full.csv}
+    \item \textbf{Post-Processing (Training):}
+        The model is trained using: \texttt{mimic3/train\_50.csv} and \texttt{mimic3/train\_full.csv}. \newline \newline A list of semi-colon separated ICD codes are read from and organized into a hierarchy. The hierarchy relationship is passed on to poincare model for training.
+\end{itemize}
+
+\subsection{Hyperparameters}
+Below are the hyperparameters from HiCu paper which we changed in \textit{options.py} file for comparison and analyzing results.
+\begin{itemize}
+    \item \textbf{Depth:} 5
+    \item \textbf{Epochs:} 2, 3, 5, 10, 500
+    \item \textbf{Model:} MultiResCNN \cite{li2020icd}, LAAT \cite{vu2020label}, RAC \cite{kim2021read}
+    \item \textbf{Decoder:} Hierarchical Hyperbolic
+    \item \textbf{Batch Size:} 16
+    \item \textbf{Workers:} 16
+    \item \textbf{Drop Out:} 0.2
+    \item \textbf{Loss Function:} BCE (Binary Cross Entropy), ASL (Asymmetric Loss \cite{ben2020asymmetric})
+\end{itemize}
+
+\subsection{Implementation}
+We modified the original code for ablation. The ablation includes reducing the ICD-9 hierarchy of codes. Our github repo for code can be found at \url{https://github.com/dbiswas0605/MCS-DS-CS598-DLH-HiCu}. The code is modified as follows:
+\begin{itemize}
+    \item The original paper inspired us to use high order grouping of ICD codes to form a 2-level hierarchy for training the model. The ICD codes are grouped based on their block numbers, such as 001-139, 140-239, 240-279, etc.
+    \item All remaining ICD codes are grouped under the top-level hierarchy and thereby will result in 2 level hierarchy.
+    \item We feed this hierarchy relation to the Poincare Algorithm, which is a powerful algorithm for learning hyperbolic embeddings in a low-dimensional space. This algorithm is designed to handle hierarchical structures.
+    \item We used \texttt{mimic3/train\_full.csv} and \texttt{mimic3/train\_50.csv} to train our model and validate its performance with reduced epochs at each depth level.
+    \item We were able to run the full code with modifications needed for ablations. Output is shown under the results section.
+\end{itemize}
+
+\subsubsection{Ablation Study 1 Code changes}
+HiCu algorithm is explicitly designed for working with output spaces that have a rich graph structure. As part of our ablation, we analyzed that the Hierarchical learning model using graph structure is better than the non-hierarchical representation of ICD codes i.e. flattening of ICD codes. 
+
+A flattened ICD code would look like below:
+\includegraphics[scale=.50]{acl-ijcnlp2021-templates/flatHierarchy.png}
+
+The code snippets below is creating the ablation by flattening the ICD-9 codes.
+\includegraphics[scale=0.25]{acl-ijcnlp2021-templates/MainFlatten1.png}
+Ablation for flat\_relations. Line: 66, 69.
+
+\subsubsection{Ablation Study 2 Code changes}
+
+The code snippets presented below involve passing Poincare the flattened hierarchy.
+\includegraphics[scale=0.28]{acl-ijcnlp2021-templates/MainFlatten2.png}
+Ablation for Poincare with negative test value of 1 (instead of default value 10). Line: 75, 81.
+
+\subsubsection{Ablation Study 3 Code changes}
+The flattened hierarchy is inputted into the gensim library with update params as shown below.
+\includegraphics[scale=0.20]{acl-ijcnlp2021-templates/ModelHyperbolic.png}
+
+Finally, once the model is trained we can see the model performance.
+
+\begin{flushleft}\includegraphics[scale=0.22]{acl-ijcnlp2021-templates/Output.png}\end{flushleft}
+
+\subsection{Computational requirements}
+We used 12th Gen Intel® Core i7-12700 (12-Core) Processor, 128GB DDR5 4800MHz RAM, NVIDIA® GeForce RTX™ 3060Ti GPU local machine with reduced epochs to train our model. We found it challenging to iterate 500+ epochs on our local machine. The HiCu model is designed across the philosophy that the ICD codes are organized in a Hierarchical tree structure and the specificity of codes increases further down as we go into each sub-tree. As the gradual curriculum learning is hardened as we train the model down the tree, we increase the epochs.
+
+Since it is exhaustive and time-consuming to run through all 500+ iterations locally we have configured GCP (Google Cloud Platform) for training model. We have used Debian 10 OS, NVIDIA Tesla P100 GPU with CUDA 11.3 M104 to run the code on cloud platform.
+
+\section{Results}
+Results are shown below with before and after code changes.
+You can refer to the details of our results from code run in \textit{output} folder on our GitHub code repository mentioned.
+Our results to compare against the original paper for full dataset \texttt{mimic3/train\_full.csv} with reduced epochs are shown below.
+\begin{itemize}
+    \item \textbf{Hierarchical model results before code change with full dataset \texttt{mimic3/train\_full.csv}}
+    
+    \includegraphics[scale=0.55]{acl-ijcnlp2021-templates/OriginalFull.png}
+    \item \textbf{Hierarchical model results before code change with \texttt{mimic3/train\_50.csv}}
+    
+    \includegraphics[scale=0.56]{acl-ijcnlp2021-templates/Original50.png}
+\end{itemize}
+
+The original hierarchical model before making code change are comparable with respect to AUC, F1 and Precision@K metrics but overall values are lower when running with depth of 5 and reduced epochs of 7, which is expected since the gradual learning performance is hardened as we increase the epochs.
+\textbf{Note:} We observed that as we run deep into the hierarchy and the epoch count increases, it results into lower loss function.
+
+\subsection{Additional results not present in the original paper}
+Below are the results after making code changes for reducing the hierarchy level further i.e. flattening the ICD code hierarchy. 
+
+\subsection{Ablation Results (After code changes) for Flattened model with \texttt{mimic3/train\_50.csv}}
+We modified the code for ablation and ran for MultiResCNN, LAAT and RAC with reduced epochs.
+
+\begin{flushleft}\includegraphics[scale=0.48]{acl-ijcnlp2021-templates/Flatten50.png}\end{flushleft}
+
+\section{Discussion}
+
+The aim of our project was to re-establish the Hierarchical learning using HiCu algorithm, is more efficient than non-hierarchical learning of ICD-9 codes. 
+
+We ran the original code to establish HiCu model performance on \textit{train\_full.csv} and reduced \textit{train\_50.csv} dataset. We compared HiCu performance with other models (LAAT, RAC) with respect to different metrics. Then we modified the code for the claims and ablations. 
+
+\begin{itemize}
+    \item For Claim 1 we reduced the hierarchy by flattening the ICD code and observed that the model performed poorly than the original paper in most metrics. This proved the importance of the hierarchical structure in improving the multi-label classification performance of the HiCu algorithm.
+
+    The studies shows that the MultiResCNN AUC accuracy has dropped from 93.16 to 85.6. On the same lines the flatten hierarchy for LAAT and RAC has significantly dropped from 88.21 to 80.23 and 89.11 to 79.19 respectively. This proves the HiCu performs better in tree structure training of ICD codes.
+    
+    \item For Claim 2 we affirmed that a reduced ICD Code Hierarchy model largely affected the training time since training time significantly increased as observed in the results. Hence reducing the hierarchy impacted training time performance in negative way.
+
+    The studies further confirms that when a graph training model is used, its efficient. The average time spent per epoch was between ~83 and ~91 which has increased significantly between ~1252 and ~1295. This further proves original paper uses lesser compute resources in training.
+\end{itemize}
+
+With our code changes, we were able to run the model using various models - 'MultiResCNN', 'RACReader' and 'LAAT'. 
+
+The most exciting aspect of our research involved the ablation study in which we removed the ICD-9 Hierarchy and were still able to train the model.
+
+\subsection{What was easy}
+The HiCu paper's GitHub code repository has clear instructions for run-time environment setup and code execution steps. 
+The source code from the original paper was reproducible using minor adjustments for python v3.10. Few minor code adjustments were required to execute the code in Python v3.10. The documentation and code instructions were clear to replicate. The detailed code commenting in \textit{options.py} was helpful to execute the project and reaffirm the claims from the original project.
+
+The pre-processing steps were easily and accurately reproducible. The \textit{requirements.txt} was updated to use latest version of gensim, nltk, numpy, pandas, scikit, torch, transformers and scipy packages.
+
+With some effort we were able to execute the code by altering the \textbf{epoch} counts and number of \textbf{workers} on home Windows(Intel/64) gaming PC.
+
+Additionally, with different hyperparameter options to change in \textit{options.py} file, we were able to compare results and use a trimmed down version of the training dataset e.g. \textit{train\_50.csv} vs \textit{train\_full.csv} for comparison and finish running the code for training the model.
+
+The code is well documented and credits were mentioned in the code when it uses an external library. 
+
+\subsection{What was difficult}
+Initially, we tried to setup the code run on M1/M2 Mac laptops which was challenging. The \textbf{nltk} and \textbf{gensim} were incompatible on apple silicon architecture. 
+
+We also worked on \textbf{Google Cloud Platform (GCP)} to utilize advanced GPUs. One challenge in doing so was to upload the \textbf{NOTEEVENTS.CSV} file which itself is about 4GB. The Tesla 1000 GPU was a little better option to work with but does imposed high cost. We were able to run few iterations but switched back most of our execution on the local  PC.
+
+The general purpose M1/Intel CPU are not adequate to run the code. With default settings for hyperparameter, it would have taken more than one week to finish running code for each experiment as it uses 500+ epochs and average run time takes over 20 minutes and memory load on the laptop/PC was barely capable to handle them. So we had tweak certain parameters e.g., \textit{batch, workers, epoch etc.} With that we were able to successfully execute on our local Windows gaming PC with NVIDIA GPU.
+
+We worked with Gensim and \textbf{Poincaré Embeddings for Learning Hierarchical Representations} libraries. The documentation for Poincaré Embeddings(\url{https://arxiv.org/abs/1705.08039}) was an interesting read and took time to comprehend how the hierarchical solution for ICD-9 works. The code modification to use a flatten the ICD-9 code and feed it to poincare API was challenging part as we have updated the negative sample count values.
+
+Further, additional changes in code was necessary for handling different depth level, since the original code was hard-coded to use 5 levels.
+
+Overall, it was worth exploring and reading the HiCu design implementation to come up with our own version of the modifications to prove the Hierarchical structure was more efficient to train the model.
+
+\subsection{Recommendations for reproducibility}
+The instructions and code documentation available on the GitHub are as below:
+\begin{itemize}
+\item \url{https://github.com/wren93/HiCu-ICD}
+\item \url{https://github.com/foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network}
+\end{itemize}
+
+
+They are the prerequisite to setup the inputs to preprocess and train the model. Based on the Python version used, following updates were needed across the code:
+
+\begin{itemize}
+    \item Changing \textit{np.int} to \textit{np.Int32}
+    \item Changing \textit{np.ifloat} to \textit{np.Float32}
+\end{itemize}
+
+The latest version of the following packages are recommended - 
+\begin{itemize}
+	\item \textit{gensim}
+	\item \textit{nltk}
+	\item \textit{numpy}
+	\item \textit{pandas}
+	\item \textit{scikit\_learn}
+	\item \textit{scipy}
+	\item \textit{torch}
+	\item \textit{tqdm}
+	\item \textit{transformers}
+\end{itemize}
+
+And finally the command line parameters below are updated based on CPU/RAM configurations:
+\begin{itemize}
+	\item \textit{data\_path}
+	\item \textit{n\_epochs}
+	\item \textit{gpu}
+	\item \textit{workers}
+\end{itemize}
+
+\section{Communication with original authors}
+
+It was a pleasure to work on the HiCu research paper. It was our great honor to reach out to the Authors \textit{Mr. Weiming, Mr. Ruijing, Ms. Tongzi, Mr. Tianshu, and Mr. Rahul}.
+
+We explained the objective of the project and our methodology of re-affirming HiCu's performance by negatively testing the algorithms by flattening the hierarchy.
+
+The authors recommended below topics for future study:
+\begin{itemize}
+    \item Training the model based on part of the label tree - e.g. only train the model on level 1, 3, 5 labels and see how the results compare to using the full label tree.
+    \item Training the model based on a random permutation of the 5 different level labels, e.g. a possible permutation could be training the model based on level 2, 4, 1, 3, 5 labels..
+\end{itemize}
+The above is not in the scope of the ablation, but it is a good future experiment to explore.
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{acl-ijcnlp2021-templates/References}
+
+%\appendix
+
+\end{document}
