@@ -66,6 +66,14 @@ Training
 1. See files under `/runs` for training configs for MultiResCNN and RAC models.
 2. For LAAT (Bi-LSTM) models, switch to `LAAT` branch and use the training configs in the root folder.
 
+Presentation
+-----
+1. PPT Slides, Video recording/link (uploaded to youtube) and PDF Report are present in this folder.
+
+Output
+-----
+This folder contains output results and metrics from code run.
+
 Acknowledgement
 -----
 A large portion of the code in this repository is borrowed from original HiCu repository [https://github.com/wren93/HiCu-ICD] and also from [foxlf823/Multi-Filter-Residual-Convolutional-Neural-Network
